@@ -31,7 +31,7 @@
                             @if( ! is_null($foodInBasket) && $foodInBasket['count'] >= $food->count && $food->count > 0 )
                                 <span class="badge badge-danger w-100 text-center py-2">تمام موجودی به سبد اضافه شد</span>
                             @elseif($food->count > 0)
-                                <a class="badge badge-info w-100 text-center py-2" href="{{ route('food.add.to.basket' , $food) }}">افزودن به سبد</a>
+                                <a class="badge badge-info w-100 text-center py-2" href="" onclick="event.preventDefault();addToCart({{ $food->id }})">افزودن به سبد</a>
                             @else
                                 <span class="badge badge-danger w-100 text-center py-2">تمام شد</span>
                             @endif
@@ -52,4 +52,13 @@
 @section('scripts')
     <script src="/owl-carousel/owl.carousel.min.js"></script>
     <script src="/js/scripts.js"></script>
+
+    <script>
+        function addToCart(id)
+        {
+            $.post('{{ route('food.add.to.basket') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
+                $('#basket-badge').html(data['basket_count']);
+            });
+        }
+    </script>
 @endsection

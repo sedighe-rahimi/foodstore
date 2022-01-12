@@ -16,7 +16,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/food/{food}', 'FoodController@show')->name('user.food.show');
-Route::get('/add-to-basket/{food}', 'FoodController@addToBasket')->name('food.add.to.basket');
+Route::post('/add-to-basket', 'FoodController@addToBasket')->name('food.add.to.basket');
 Route::get('/basket-show/foods', 'BasketController@getAllItems')->name('basket.foods');
 
 Route::middleware(['auth'])->group(function () {

@@ -20,22 +20,24 @@
                     <div class="col-12 col-md-2">قیمت</div>
                     <div class="col-12 col-md-4">قیمت کل</div>
                 </div>
-                <div class="col-12 d-flex">
+                <div class="col-12">
                     @foreach( $order->orderDetails as $orderDetail )
-                        <div class="col-12 col-md-2">
-                            <img style="width:100px" src="{{ $orderDetail->food->image_url }}">
+                        <div class="row col-12 d-flex border-bottom py-1">
+                            <div class="col-12 col-md-2">
+                                <img style="width:100px" src="{{ $orderDetail->food->image_url }}">
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <a href="{{ route('user.food.show' , $orderDetail->food) }}">
+                                    {{ $orderDetail->food->name }}
+                                </a>
+                            </div>
+                            <div class="col-12 col-md-2">
+                                {{ $orderDetail->count }}
+                            </div>
+                            <div class="col-12 col-md-2"> {{ number_format($orderDetail->price) }}  تومان</div>
+                            <div class="col-12 col-md-3"> {{ number_format($orderDetail->price * $orderDetail->count) }}  تومان</div>
                         </div>
-                        <div class="col-12 col-md-2">
-                            <a href="{{ route('user.food.show' , $orderDetail->food) }}">
-                                {{ $orderDetail->food->name }}
-                            </a>
-                        </div>
-                        <div class="col-12 col-md-2">
-                            {{ $orderDetail->count }}
-                        </div>
-                        <div class="col-12 col-md-2"> {{ number_format($orderDetail->price) }}  تومان</div>
-                        <div class="col-12 col-md-4"> {{ number_format($orderDetail->price * $orderDetail->count) }}  تومان</div>
-                @endforeach
+                    @endforeach
                 </div>
         </div>
         <div class="col-12 col-md-4">

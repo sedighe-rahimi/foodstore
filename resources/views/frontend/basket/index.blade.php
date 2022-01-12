@@ -17,34 +17,36 @@
                     <div class="col-12 col-md-2">قیمت</div>
                     <div class="col-12 col-md-4">قیمت کل</div>
                 </div>
-                <div class="col-12 d-flex">
+                <div class="col-12">
                     @foreach( $basketItems as $item )
-                    @php
-                        $food = \App\Models\Food::find($item['id']);
-                        $cacheName = 'foods';
-                    @endphp
-                        <div class="col-12 col-md-2">
-                            <img style="width:100px" src="{{ $food->image_url }}">
+                        @php
+                            $food = \App\Models\Food::find($item['id']);
+                            $cacheName = 'foods';
+                        @endphp
+                        <div class="row col-12 d-flex border-bottom py-1">
+                            <div class="col-12 col-md-2">
+                                <img style="width:100px" src="{{ $food->image_url }}">
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <a href="{{ route('user.food.show' , $food) }}">
+                                    {{ $item['title'] }}
+                                </a>
+                            </div>
+                            <div class="col-12 col-md-2">
+                                @if($item['count'] < $food->count)
+                                    <a class="num-change" href="{{ route('basket.addCount' , ['cacheName' => $cacheName , 'id' => $item['id']] ) }}">+</a>
+                                @endif
+                                <a href="#" class="border num-change">{{ $item['count'] }}</a>
+                                @if($item['count'] > 1)
+                                    <a class="num-change" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => 1] ) }}">-</a> 
+                                @endif
+                            </div>
+                            <div class="col-12 col-md-2"> {{ $item['price'] }}  تومان</div>
+                            <div class="col-12 col-md-3"> {{ $item['price'] * $item['count'] }}  تومان
+                                <a  class="font-weight-lighter badge badge-danger" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => $item['count']] ) }}">حذف</a>
+                            </div>
                         </div>
-                        <div class="col-12 col-md-2">
-                            <a href="{{ route('user.food.show' , $food) }}">
-                                {{ $item['title'] }}
-                            </a>
-                        </div>
-                        <div class="col-12 col-md-2">
-                            @if($item['count'] < $food->count)
-                                <a class="num-change" href="{{ route('basket.addCount' , ['cacheName' => $cacheName , 'id' => $item['id']] ) }}">+</a>
-                            @endif
-                            <a href="#" class="border num-change">{{ $item['count'] }}</a>
-                            @if($item['count'] > 1)
-                                <a class="num-change" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => 1] ) }}">-</a> 
-                            @endif
-                        </div>
-                        <div class="col-12 col-md-2"> {{ $item['price'] }}  تومان</div>
-                        <div class="col-12 col-md-4"> {{ $item['price'] * $item['count'] }}  تومان
-                            <a  class="font-weight-lighter badge badge-danger" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => $item['count']] ) }}">حذف</a>
-                        </div>
-                @endforeach
+                    @endforeach
                 </div>
         </div>
         <div class="col-12 col-md-3">
