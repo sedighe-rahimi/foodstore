@@ -1,0 +1,15 @@
+{
+    "name": "Basket",
+    "alias": "basket",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Basket\\Providers\\BasketServiceProvider"
+    ],
+    "aliases": {
+        "Basket":"Modules\\Basket\\Facades\\Basket"
+    },
+    "files": [],
+    "requires": []
+}
