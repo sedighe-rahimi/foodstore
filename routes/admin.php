@@ -5,7 +5,7 @@ use App\Http\Controllers;
 
 
 Route::middleware(['auth','is.admin'])->group(function () {
-    Route::get('/panel', 'HomeController@panel');
+    Route::get('/panel', 'HomeController@panel')->name('admin.panel');
     Route::resource('/foods' , 'FoodController');
     Route::patch('/food/addCount' , 'FoodController@addCount')->name('food.add.count');
     Route::resource('/orders' , 'OrderController')->only(['index' , 'show' , 'destroy']);

@@ -14,7 +14,6 @@
                     <div class="col-12 col-md-2"></div>
                     <div class="col-12 col-md-4">عنوان</div>
                     <div class="col-12 col-md-2">تعداد</div>
-                    {{-- <div class="col-12 col-md-2">قیمت (تومان)</div> --}}
                     <div class="col-12 col-md-3">قیمت (تومان)</div>
                     <div class="col-12 col-md-1"></div>
                 </div>
@@ -25,26 +24,25 @@
                             $cacheName = 'foods';
                         @endphp
                         <div class="row col-12 d-flex py-1 {{ ! $loop->last ? ' border-bottom' : '' }}">
-                            <div class="col-12 col-md-2">
+                            <div class="col-12 col-md-2 align-self-center">
                                 <img style="width:100px" class="img-thumbnail ml-2" src="{{ $food->image_url }}">
                             </div>
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-4 align-self-center">
                                 <a href="{{ route('user.food.show' , $food) }}">
                                     {{ $item['title'] }}
                                 </a>
                             </div>
-                            <div class="col-12 col-md-2">
+                            <div class="col-12 col-md-2 align-self-center">
                                 @if($item['count'] < $food->count)
                                     <a class="num-change" href="{{ route('basket.addCount' , ['cacheName' => $cacheName , 'id' => $item['id']] ) }}">+</a>
                                 @endif
-                                <a href="#" class="border num-change">{{ $item['count'] }}</a>
+                                <a href="#" class="border num-change text-dark px-2">{{ $item['count'] }}</a>
                                 @if($item['count'] > 1)
                                     <a class="num-change" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => 1] ) }}">-</a> 
                                 @endif
                             </div>
-                            {{-- <div class="col-12 col-md-2"> {{ number_format($item['price']) }}</div> --}}
-                            <div class="col-12 col-md-3"> {{ number_format($item['price'] * $item['count']) }}</div>
-                            <div class="col-12 col-md-1">
+                            <div class="col-12 col-md-3 align-self-center"> {{ number_format($item['price']) }}</div>
+                            <div class="col-12 col-md-1 align-self-center">
                                 <a  class="font-weight-lighter badge badge-danger" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => $item['count']] ) }}">حذف</a>
                             </div>
                         </div>
@@ -62,7 +60,7 @@
                     <div class="col-12 col-md-7 px-0"> {{ number_format($totalPrice) }} تومان</div>
                 </div>
             </div>
-            <div class="w-100 mb-3"></div>
+            <div class="w-100 mb-5"></div>
             <form action="{{ route('pay.basket') }}" method="post">
                 @csrf
                 <button class="btn btn-success btn-block">پرداخت</button>

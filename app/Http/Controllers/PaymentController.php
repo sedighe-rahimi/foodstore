@@ -17,10 +17,16 @@ class PaymentController extends Controller
         $cacheName = 'foods';
         
         $basketItems = Basket::all($cacheName);
-        
+
         if( ! $basketItems ){
             alert()->error('سبد خرید شما خالی است!')->persistent('متوجه شدم');
             return redirect(url('/'));
+        }
+
+        if( ! Basket::isValid('foods' , 'App\Models\Food') ){
+            Basket::setAgain('foods' , 'App\Models\Food');
+            alert()->error('اطلاعات برخی از غذاهای سبد خرید شما تغییر کرده است. لطفا تغییرات را بررسی و مجددا اقدام نمایید.')->persistent('متوجه شدم');
+            return redirect(route('basket.foods'));
         }
 
         $totalPrice     = 0;
@@ -52,8 +58,8 @@ class PaymentController extends Controller
                     $orderDetail                = new OrderDetail();
                     $orderDetail->order_id      = $order->id;
                     $orderDetail->food_id       = $food->id;
-                    $orderDetail->price         = $food->price * $item['count'];
                     $orderDetail->count         = $item['count'];
+                    $orderDetail->price         = $food->price;
                     $orderDetail->waiting_time  = $food->waiting_time;
                     if($orderDetail->save()){
                         Basket::deleteBasket('foods');
@@ -68,11 +74,5 @@ class PaymentController extends Controller
 
         alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
         return back();
-    }
-
-    public function showFactor($orderId)
-    {
-        $order = Order::findOrFail($orderId);
-        return view('frontend.factor' , compact('order'));
     }
 }

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static basket deleteBasket(string $cacheName)
  * @method static basket addCount(string $cacheName , int $id)
  * @method static basket decreaseCount(string $cacheName , int $decCount = 1 , array $dataArray)
+ * @method static basket isValid(string $cacheName , collection $instance)
+ * @method static basket setAgain(string $cacheName , collection $instance)
  */
 class Basket extends Facade
 {

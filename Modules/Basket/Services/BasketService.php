@@ -153,5 +153,51 @@ class BasketService
         cache()->forget($cacheName);
     }
 
+    public function isValid($cacheName , $instance)
+    {
+        $basketItems    = $this->all($cacheName);
+
+        foreach($basketItems as $item){
+            $dbItem = $instance::find($item['id']);
+
+            if($dbItem){
+                if( $item['price'] != $dbItem->price || $dbItem->count < $item['count'] ){
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+
+    public function setAgain($cacheName , $instance)
+    {
+        $basketItems    = $this->all($cacheName);
+        $newItems       = array();
+
+        foreach($basketItems as $item){
+            $dbItem = $instance::find($item['id']);
+
+            if($dbItem){
+                $item['price'] = $dbItem->price;
+                if( $dbItem->count < $item['count'] ){
+                    // if($dbItem->count == 0) continue;
+                    $item['count'] = $dbItem->count;
+                }
+            }
+            array_push($newItems , $item);            
+        }
+
+        $serializedItems = serialize($newItems);
+    
+        if( ! empty($newItems) ){
+            cache()->set($cacheName , $serializedItems , $this->timeout);
+        }else{
+            cache()->forget($cacheName);
+        }
+    }
 
 }

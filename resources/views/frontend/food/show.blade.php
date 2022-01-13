@@ -38,13 +38,5 @@
     </div>
 @endsection
 
-@section('scripts')
-    <script>
-        function addToCart(id)
-        {
-            $.post('{{ route('food.add.to.basket') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
-                $('#basket-badge').html(data['basket_count']);
-            });
-        }
-    </script>    
+@section('scripts')   
 @endsection

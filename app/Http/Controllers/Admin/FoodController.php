@@ -38,12 +38,11 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $validateData = $request->validate([
             'name'          => 'required',
-            'waiting_time'  => 'required|numeric',
-            'price'         => 'required|numeric',
-            'count'         => 'required|numeric',
+            'waiting_time'  => 'required|numeric|min:0',
+            'price'         => 'required|numeric|min:0',
+            'count'         => 'required|numeric|min:0',
             'food_type_id'  => 'required',
             'description'   => 'nullable|min:20',
             'image_url'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -110,9 +109,9 @@ class FoodController extends Controller
     {
         $validateData = $request->validate([
             'name'          => 'required',
-            'waiting_time'  => 'required|numeric',
-            'price'         => 'required|numeric',
-            'count'         => 'required|numeric',
+            'waiting_time'  => 'required|numeric|min:0',
+            'price'         => 'required|numeric|min:0',
+            'count'         => 'required|numeric|min:0',
             'food_type_id'  => 'required',
             'description'   => 'nullable|min:20',
             'image_url'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

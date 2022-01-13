@@ -1,4 +1,9 @@
 {
-    "finished": "تمام شد",
-    "accepted": "پذیرفته شد"
+    "finished":         "تمام شد",
+    "accepted":         "پذیرفته شد",
+    "Register":         "ثبت نام",
+    "Name":             "نام",
+    "E-Mail Address":   "آدرس ایمیل",
+    "Password":         "رمز عبور",
+    "Confirm Password": "تایید رمز عبور"
 }

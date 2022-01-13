@@ -14,14 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('homepage');
 Route::get('/food/{food}', 'FoodController@show')->name('user.food.show');
 Route::post('/add-to-basket', 'FoodController@addToBasket')->name('food.add.to.basket');
 Route::get('/basket-show/foods', 'BasketController@getAllItems')->name('basket.foods');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/basket/pay' , 'PaymentController@payBasket')->name('pay.basket');
-    Route::get('/factor/{orderId}' , 'PaymentController@showFactor')->name('factor.show');
+    Route::get('/factor/{orderId}' , 'HomeController@showFactor')->name('factor.show');
 });
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
