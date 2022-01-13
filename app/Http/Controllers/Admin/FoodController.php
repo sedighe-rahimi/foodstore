@@ -66,10 +66,15 @@ class FoodController extends Controller
         $food->image_url    = '\\images\\'.$imageName;
 
         if($food->save()){
+            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم');
             return redirect(route('foods.index'));
         }else{
-            return back()->withErrors(['error'=> 'Food is not stored successfuly!']);
+            alert()->error('ذخیره اطلاعات با شکست مواجه شد!')->persistent('متوجه شدم');
+            return back();
         }
+    
+        alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
+        return back();
     }
 
     /**
@@ -129,10 +134,15 @@ class FoodController extends Controller
         
 
         if($food->save()){
+            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم');
             return redirect(route('foods.index'));
         }else{
-            return back()->withErrors(['error'=> 'Food is not updated successfuly!']);
+            alert()->error('بروزرسانی با شکست مواجه شد!')->persistent('متوجه شدم');
+            return back();
         }
+
+        alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
+        return back();
     }
 
     /**
@@ -165,9 +175,11 @@ class FoodController extends Controller
         $food->count = $food->count + $request->add_count;
 
         if( $food->count >= 0 && $food->save() ){
-            return back();
+            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم');
+        }else{
+            alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
         }
 
-        return back()->withErrors(['error' => 'خطایی رخ داده است!']);
+        return back();
     }
 }

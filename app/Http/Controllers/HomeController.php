@@ -26,12 +26,6 @@ class HomeController extends Controller
     public function index()
     {
         $foodsType = FoodType::whereActive(1)->get()->pluck('id');
-        
-        // $foods = array();
-
-        // foreach($foodsType as $foodType){
-        //     $foods[$foodType] = Food::whereType($foodType)->get();
-        // }
 
         return view('frontend.index' , compact('foodsType'));
     }

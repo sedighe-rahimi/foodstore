@@ -1,21 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <link rel="stylesheet" href="/css/style.css">
-    <style>
-        .card-b {
-            margin: auto;
-            /* max-width: 950px; */
-            width: 100%;
-            box-shadow: 0 6px 20px 0 rgb(0 0 0 / 19%);
-            border-radius: 1rem;
-            border: transparent;
-        }
-        .num-change{
-            text-decoration: none;
-        }
-    </style>
-@endsection
 
 @section('scripts')
 

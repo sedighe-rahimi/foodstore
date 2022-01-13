@@ -96,13 +96,16 @@ class FoodController extends Controller
         ];
         
         Basket::add('foods' , get_class($food) , $basketData);
+
         if($request->ajax()){
             return response()->json([
                 'status' => 200,
                 'basket_count'  => Basket::all('foods') && ! is_null(Basket::all('foods')) ? count(Basket::all('foods')) : 0
             ]);
+        }else{
+            return redirect(route('basket.foods'));
         }
-        return redirect(route('basket.foods'));
+
         
     }
     

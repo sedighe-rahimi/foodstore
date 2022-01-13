@@ -13,8 +13,10 @@ class BasketController extends Controller
         
         $basketItems = Basket::all($cacheName);
         
-        if( ! $basketItems )
+        if( ! $basketItems ){
+            alert()->error('سبد خرید شما خالی است!')->persistent('متوجه شدم');
             return redirect(url('/'));
+        }
 
         $totalPrice = 0;
 

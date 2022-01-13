@@ -16,12 +16,14 @@
                 <div class="card">
                     <img src="{{ $food->image_url }}" style="height:150px" alt="" class="card-img-top">
                     <div class="card-body text-justify">
-                        <h3>{{ $food->name }}</h3>
+                        <h5>
+                            <a class="text-dark" href="{{ route('user.food.show' , $food) }}">{{ $food->name }}</a>
+                        </h5>
                         <p>{{ $food->description }}</p>
                     </div>
                     <div class="card-footer">
                         <div class="col-12 d-flex justify-content-between">
-                            <span>{{ $food->price }} تومان</span>
+                            <span>{{ number_format($food->price) }} تومان</span>
                             <span>موجودی: {{ $food->count }}</span>
                         </div>
                         <div class="col-12 mt-2">
@@ -46,7 +48,6 @@
 
 @section('styles')
     <link rel="stylesheet" href="/owl-carousel/owl.carousel.min.css">
-    <link href="/css/style.css" rel="stylesheet">
 @endsection
 
 @section('scripts')

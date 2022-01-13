@@ -9,23 +9,42 @@
         <div class="media my-4">
             <img style="width:150px;" src="{{ $food->image_url }}" class="img-thumbnail ml-2" alt="...">
             <div class="media-body">
-              <h5 class="display-4">{{ $food->name }}</h5>
+              <h3>{{ $food->name }}</h3>
                 <p class="lead">{{ $food->description }}</p>
             </div>
         </div>
         
         <hr class="my-4">
-        <p>
+        <div class="col-12 d-flex flex-column">
             @php
                 $foodInBasket = \Modules\Basket\Facades\Basket::get('foods' , $food->id);
             @endphp
-                موجودی : {{ $food->count }}
-        </p>
-        @if( ! is_null($foodInBasket) && $foodInBasket['count'] >= $food->count && $food->count > 0 )
-            <span class="bg-danger">شما همه موجودی این غذا را به سبد خود اضافه کرده اید!</span>
-        @elseif($food->count > 0)
-            <a href="{{ route('food.add.to.basket' , $food) }}" class="btn btn-primary">افزودن به سبد</a>
-        @endif
+              <div class="col-12 d-flex">
+                <div class="col-12 col-md-6">  
+                    قیمت : {{ number_format($food->price) }} تومان
+                  </div>
+                  <div class="col-12 col-md-6">  
+                    موجودی : {{ $food->count }}
+                  </div>
+              </div>
+              <div class="col-12 pt-4">
+                    @if( ! is_null($foodInBasket) && $foodInBasket['count'] >= $food->count && $food->count > 0 )
+                        <span class="alert alert-danger">شما همه موجودی این غذا را به سبد خود اضافه کرده اید!</span>
+                    @elseif($food->count > 0)
+                        <a href="" onclick="event.preventDefault();addToCart({{ $food->id }})" class="btn btn-primary">افزودن به سبد</a>
+                    @endif
+              </div>
+        </div>
     </div>
-    
+@endsection
+
+@section('scripts')
+    <script>
+        function addToCart(id)
+        {
+            $.post('{{ route('food.add.to.basket') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
+                $('#basket-badge').html(data['basket_count']);
+            });
+        }
+    </script>    
 @endsection

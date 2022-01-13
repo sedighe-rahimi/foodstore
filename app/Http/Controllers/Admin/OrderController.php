@@ -41,9 +41,11 @@ class OrderController extends Controller
     {
         if($order->delete()){
             $order->orderDetails()->delete();
-            return back();
+            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم');
         }else{
-            return back()->withErrors(['error' => 'خطایی رخ داده است!']);
+            alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
         }
+        
+        return back();
     }
 }

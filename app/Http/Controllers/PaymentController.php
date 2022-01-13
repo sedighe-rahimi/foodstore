@@ -18,22 +18,20 @@ class PaymentController extends Controller
         
         $basketItems = Basket::all($cacheName);
         
-        if( ! $basketItems )
+        if( ! $basketItems ){
+            alert()->error('سبد خرید شما خالی است!')->persistent('متوجه شدم');
             return redirect(url('/'));
+        }
 
         $totalPrice     = 0;
         $maxWaitingTime = 0;
 
         foreach($basketItems as $item){
             $food           = Food::findOrFail($item['id']);
-            $errorsArray    = array();
 
             if( $food->count < $item['count'] ){
-                array_push($errorsArray , 'موجودی یکی از محصولات سبد خرید کمتر از سفارش شماست.!');
-            }
-
-            if( ! empty($errorsArray) ){
-                return back()->withErrors(['error' => $errorsArray]);
+                alert()->error('موجودی یکی از محصولات سبد خرید کمتر از سفارش شماست.!')->persistent('متوجه شدم');
+                return back();
             }
 
             $totalPrice += $item['price'] * $item['count'];
@@ -68,7 +66,8 @@ class PaymentController extends Controller
             return redirect(route('factor.show' , ['orderId' => $order->id]));
         }
 
-        return back()->withErrors(['error' => 'خطایی رخ داده است!']);
+        alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
+        return back();
     }
 
     public function showFactor($orderId)
