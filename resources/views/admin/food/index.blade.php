@@ -49,14 +49,18 @@
                 <td>{{ $foodType ? $foodType->title : '' }}</td>
                 <td>{{ $food->waiting_time }}</td>
                 <td>
-                  {{-- <span class="btn-group btn-group-sm" role="group" aria-label="Basic example"> --}}
-                    <a class="btn btn-warning" href="{{ route('foods.edit' , $food) }}">ویرایش</a>
-                    <form action="{{ route('foods.destroy' , $food) }}" method="POST">
-                      @csrf
-                      @method('delete')
-                      <button class="btn btn-danger">حذف</button>
-                    </form>
-                  {{-- </span> --}}
+                    <div class="btn-group">
+                      <a class="btn btn-warning" href="{{ route('foods.edit' , $food) }}">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <form action="{{ route('foods.destroy' , $food) }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </form>
+                    </div>
                 </td>
               </tr> 
             @endforeach

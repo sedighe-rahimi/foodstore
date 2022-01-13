@@ -14,7 +14,7 @@ class BasketController extends Controller
         $basketItems = Basket::all($cacheName);
         
         if( ! $basketItems ){
-            alert()->error('سبد خرید شما خالی است!')->persistent('متوجه شدم');
+            alert()->error('سبد خرید شما خالی است!')->persistent('متوجه شدم')->autoclose(3000);
             return redirect(url('/'));
         }
 

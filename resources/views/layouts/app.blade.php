@@ -28,13 +28,11 @@
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
                     <div class="dropdown mr-3">
                         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           منو
                         </button>
                         <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton">
-
                             @guest
                                 @if (Route::has('login'))
                                     <a class="dropdown-item" href="{{ route('login') }}">{{ __('ورود') }}</a>
@@ -58,39 +56,13 @@
                             @endguest
                         </div>
                       </div>
-                    <!-- Right Side Of Navbar -->
-                    {{-- <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('ورود') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('ثبت نام') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                {{ __('خروج') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        @endguest
-                    </ul> --}}
                 </div>
 
               
                 <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarSupportedContent">
                   @if(in_array(Route::currentRouteName() ,['homepage']))
                     <form action="{{ route('homepage') }}" class="form-inline my-2 my-lg-0" id="foodtypes">
-                        <select name="type" class="form-control form-control-sm" onchange="$('#foodtypes').submit();">
+                        <select name="type" class="form-control" onchange="$('#foodtypes').submit();">
                             <option value="">همه غذاها</option>
                             @foreach(\App\Models\FoodType::whereActive(1)->get() as $type)
                                 <option value="{{ $type->id }}" {{ Request('type') && Request('type') == $type->id ? 'selected' : '' }}>{{ $type->title }}</option>
@@ -98,7 +70,7 @@
                         </select>
                     </form>
                   @endif
-                  <a href="{{ route('basket.foods') }}" class="badge badge-primary text-light ml-1">
+                  <a href="{{ route('basket.foods') }}" class="badge badge-primary text-light ml-1 shop-icon">
                     <span class="badge badge-light" id="basket-badge">{{  ! is_null(Basket::all('foods')) && Basket::all('foods') ? count(Basket::all('foods')) : 0 }}</span>
                     <i class="fas fa-shopping-cart"></i>
                   </a>
@@ -121,11 +93,16 @@
                 <script>
                     function addToCart(id)
                     {
-                        $.post('{{ route('food.add.to.basket') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
-                            $('#basket-badge').html(data['basket_count']);
-                            if(data['status'] == 200){
-                                alert('محصول مورد نظر به سبد خرید شما اضافه شد.');
-                            }
+                        $.post('{{ route('food.add.to.basket') }}',
+                                 {_token:'{{ csrf_token() }}', id:id}, function(data){
+                                    $('#basket-badge').html(data['basket_count']);
+                                    if(data['status'] == 200){
+                                        swal("","محصول مورد نظر به سبد خرید شما اضافه شد.", "success", 
+                                            {
+                                                button: "متوجه شدم",
+                                                timer: 3000
+                                            });
+                                    }
                         });
                     }
                 </script>

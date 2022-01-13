@@ -24,10 +24,10 @@
             <label>قیمت (تومان)</label>
             <input name="price" type="number" class="form-control" placeholder="قیمت غذا" value="{{ old('price' , $food->price) }}" min="0">
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
             <label>موجودی غذا</label>
             <input name="count" type="number" class="form-control" placeholder="موجودی غذا" value="{{ old('count' , $food->count) }}" min="0">
-          </div>
+          </div> --}}
           <div class="form-group">
             <label>زمان آماده سازی غذا (دقیقه)</label>
             <input name="waiting_time" type="number" class="form-control" placeholder="زمان آماده سازی غذا" value="{{ old('waiting_time' , $food->waiting_time) }}" min="0">

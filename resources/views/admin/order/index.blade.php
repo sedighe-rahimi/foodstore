@@ -18,7 +18,7 @@
             <th>شناسه سفارش</th>
             <th>نام کاربر</th>
             <th>تعداد محصول</th>
-            <th>زمان سفارش (دقیقه)</th>
+            <th>زمان ثبت سفارش (دقیقه)</th>
             <th>زمان انتظار (دقیقه)</th>
             <th>قیمت کل (تومان)</th>
             <th></th>
@@ -34,26 +34,26 @@
                 <td>{{ $order->waiting_time }}</td>
                 <td>{{ number_format($order->total_price) }}</td>
                 <td>
-                    <a class="btn btn-warning" href="{{ route('orders.show' , $order) }}">مشاهده</a>
-                    <form action="{{ route('orders.destroy' , $order) }}" method="POST">
-                      @csrf
-                      @method('delete')
-                      <button class="btn btn-danger">حذف</button>
-                    </form>
+                    <div class="btn-group">
+                      <a class="btn btn-warning" href="{{ route('orders.show' , $order) }}" data-toggle="tooltip" data-placement="top" title="مشاهده جزئیات سفارش">
+                        <i class="fas fa-list"></i>
+                      </a>
+                      {{-- <form action="{{ route('orders.destroy' , $order) }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </form> --}}
+                    </div>
                 </td>
               </tr> 
             @endforeach
           </tbody>
         </table>
-        {{-- <div class="row">
-          <div class="col-sm-12 col-md-7">
-          <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-            {!! $orders->render() !!}
-            </div>
-          </div>
-        </div> --}}
+        {!! $orders->render() !!}
+        {{-- {!! $orders->links('pagination::bootstrap-4') !!} --}}
       </div>
-      <!-- /.card-body -->
     </div>
   </div>
 @endsection

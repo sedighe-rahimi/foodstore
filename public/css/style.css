@@ -31,8 +31,8 @@ body{
     height: 100px;
     overflow: hidden;
 }
-/* .owl-carousel .owl-dots.disabled, .owl-carousel .owl-nav.disabled {display:inline !important;} */
 /**** owl-carousel-End ****/
 
-
-
+a{color: #505050;}
+a:hover{color: #adadad;text-decoration: none;}
+a.shop-icon{font-size:1.2rem}

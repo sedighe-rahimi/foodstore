@@ -19,13 +19,13 @@ class PaymentController extends Controller
         $basketItems = Basket::all($cacheName);
 
         if( ! $basketItems ){
-            alert()->error('سبد خرید شما خالی است!')->persistent('متوجه شدم');
+            alert()->error('سبد خرید شما خالی است!')->persistent('متوجه شدم')->autoclose(3000);
             return redirect(url('/'));
         }
 
         if( ! Basket::isValid('foods' , 'App\Models\Food') ){
             Basket::setAgain('foods' , 'App\Models\Food');
-            alert()->error('اطلاعات برخی از غذاهای سبد خرید شما تغییر کرده است. لطفا تغییرات را بررسی و مجددا اقدام نمایید.')->persistent('متوجه شدم');
+            alert()->error('اطلاعات برخی از غذاهای سبد خرید شما تغییر کرده است. لطفا تغییرات را بررسی و مجددا اقدام نمایید.')->persistent('متوجه شدم')->autoclose(3000);
             return redirect(route('basket.foods'));
         }
 
@@ -36,7 +36,7 @@ class PaymentController extends Controller
             $food           = Food::findOrFail($item['id']);
 
             if( $food->count < $item['count'] ){
-                alert()->error('موجودی یکی از محصولات سبد خرید کمتر از سفارش شماست.!')->persistent('متوجه شدم');
+                alert()->error('موجودی یکی از محصولات سبد خرید کمتر از سفارش شماست.!')->persistent('متوجه شدم')->autoclose(3000);
                 return back();
             }
 
@@ -72,7 +72,7 @@ class PaymentController extends Controller
             return redirect(route('factor.show' , ['orderId' => $order->id]));
         }
 
-        alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
+        alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم')->autoclose(3000);
         return back();
     }
 }

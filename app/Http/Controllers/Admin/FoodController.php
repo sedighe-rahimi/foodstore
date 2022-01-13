@@ -65,14 +65,14 @@ class FoodController extends Controller
         $food->image_url    = '\\images\\'.$imageName;
 
         if($food->save()){
-            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم');
+            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم')->autoclose(3000);
             return redirect(route('foods.index'));
         }else{
-            alert()->error('ذخیره اطلاعات با شکست مواجه شد!')->persistent('متوجه شدم');
+            alert()->error('ذخیره اطلاعات با شکست مواجه شد!')->persistent('متوجه شدم')->autoclose(3000);
             return back();
         }
     
-        alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
+        alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم')->autoclose(3000);
         return back();
     }
 
@@ -111,17 +111,22 @@ class FoodController extends Controller
             'name'          => 'required',
             'waiting_time'  => 'required|numeric|min:0',
             'price'         => 'required|numeric|min:0',
-            'count'         => 'required|numeric|min:0',
+            // 'count'         => 'required|numeric|min:0',
             'food_type_id'  => 'required',
             'description'   => 'nullable|min:20',
-            'image_url'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if( is_null($food->image_url) || isset($request->image_url) ){
+            $validateData = $request->validate([
+                'image_url'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+        }
 
         $food->name         = $validateData['name'];
         $food->waiting_time = $validateData['waiting_time'];
         $food->user_id      = Auth::user()->id;
         $food->price        = $validateData['price'];
-        $food->count        = $validateData['count'];
+        // $food->count        = $validateData['count'];
         $food->food_type_id = $validateData['food_type_id'];
         $food->description  = $validateData['description'];
         
@@ -133,14 +138,14 @@ class FoodController extends Controller
         
 
         if($food->save()){
-            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم');
+            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم')->autoclose(3000);
             return redirect(route('foods.index'));
         }else{
-            alert()->error('بروزرسانی با شکست مواجه شد!')->persistent('متوجه شدم');
+            alert()->error('بروزرسانی با شکست مواجه شد!')->persistent('متوجه شدم')->autoclose(3000);
             return back();
         }
 
-        alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
+        alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم')->autoclose(3000);
         return back();
     }
 
@@ -174,9 +179,9 @@ class FoodController extends Controller
         $food->count = $food->count + $request->add_count;
 
         if( $food->count >= 0 && $food->save() ){
-            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم');
+            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم')->autoclose(3000);
         }else{
-            alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
+            alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم')->autoclose(3000);
         }
 
         return back();

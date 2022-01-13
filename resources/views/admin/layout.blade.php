@@ -17,7 +17,7 @@
     @yield('styles')
 </head>
 <body>
-    <div class="container p-2">
+    <div class="container-fluid p-2">
         <div id="app">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -27,33 +27,34 @@
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="dropdown mr-3">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          منو
+                        </button>
+                        <div class="dropdown-menu text-right" aria-labelledby="dropdownMenuButton">
+                            @guest
+                                @if (Route::has('login'))
+                                    <a class="dropdown-item" href="{{ route('login') }}">{{ __('ورود') }}</a>
+                                @endif
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('ورود') }}</a>
-                                </li>
-                            @endif
+                                @if (Route::has('register'))
+                                    <a class="dropdown-item" href="{{ route('register') }}">{{ __('ثبت نام') }}</a>
+                                @endif
+                            @else
+                                @if( Auth::check() && Auth::user()->type == 'admin' )
+                                    <a class="dropdown-item" href="{{ route('admin.panel') }}">پنل مدیریت</a>
+                                @endif
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    {{ __('خروج') }}
+                                </a>
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('ثبت نام') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                {{ __('خروج') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        @endguest
-                    </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            @endguest
+                        </div>
+                      </div>
                 </div>
               
                 {{-- <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarSupportedContent">

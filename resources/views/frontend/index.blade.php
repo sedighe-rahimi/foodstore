@@ -6,7 +6,6 @@
         <h4>غذاهای {{ $foodType->title }}</h4>
     </div>
     <div id="owl-carousel{{ $loop->index+1 }}" class="owl-carousel p-3">
-        {{-- @foreach ($foodType->foods()->where('count' , '>' , 0)->latest()->take(20)->get() as $food) --}}
         @foreach ($foodType->foods()->latest()->take(20)->get() as $food)
             <div>
                 <div class="card">
@@ -15,7 +14,7 @@
                         <h5>
                             <a class="text-dark" href="{{ route('user.food.show' , $food) }}">{{ $food->name }}</a>
                         </h5>
-                        <p>{{ $food->description }}</p>
+                        <p>{{ substr($food->description, 0,200) }}...</p>
                     </div>
                     <div class="card-footer">
                         <div class="col-12 d-flex justify-content-between">

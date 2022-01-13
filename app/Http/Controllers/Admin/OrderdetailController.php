@@ -24,9 +24,9 @@ class OrderdetailController extends Controller
 
         $orderDetail->delivered_status  = $request->set_status;
         if($orderDetail->save()){
-            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم');
+            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم')->autoclose(3000);
         }else{
-            alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
+            alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم')->autoclose(3000);
         }
         
         return back();

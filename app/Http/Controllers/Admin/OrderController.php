@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::latest()->get();
+        $orders = Order::latest()->paginate(2);
 
         return view('admin.order.index' , compact('orders'));
     }
@@ -41,9 +41,9 @@ class OrderController extends Controller
     {
         if($order->delete()){
             $order->orderDetails()->delete();
-            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم');
+            alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم')->autoclose(3000);
         }else{
-            alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم');
+            alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم')->autoclose(3000);
         }
         
         return back();

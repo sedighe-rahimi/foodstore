@@ -34,16 +34,22 @@
                             </div>
                             <div class="col-12 col-md-2 align-self-center">
                                 @if($item['count'] < $food->count)
-                                    <a class="num-change" href="{{ route('basket.addCount' , ['cacheName' => $cacheName , 'id' => $item['id']] ) }}">+</a>
+                                    <a class="num-change" href="{{ route('basket.addCount' , ['cacheName' => $cacheName , 'id' => $item['id']] ) }}">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
                                 @endif
                                 <a href="#" class="border num-change text-dark px-2">{{ $item['count'] }}</a>
                                 @if($item['count'] > 1)
-                                    <a class="num-change" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => 1] ) }}">-</a> 
+                                    <a class="num-change" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => 1] ) }}">
+                                        <i class="fas fa-minus"></i>
+                                    </a> 
                                 @endif
                             </div>
                             <div class="col-12 col-md-3 align-self-center"> {{ number_format($item['price']) }}</div>
                             <div class="col-12 col-md-1 align-self-center">
-                                <a  class="font-weight-lighter badge badge-danger" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => $item['count']] ) }}">حذف</a>
+                                <a  class="text-danger" href="{{ route('basket.decCount' , ['cacheName' => $cacheName , 'id' => $item['id'] , 'decCount' => $item['count']] ) }}">
+                                    <i class="fas fa-times"></i>
+                                </a>
                             </div>
                         </div>
                     @endforeach
