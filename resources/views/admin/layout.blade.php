@@ -55,7 +55,7 @@
                     </ul>
                 </div>
               
-                <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarSupportedContent">
+                {{-- <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarSupportedContent">
                   <form class="form-inline my-2 my-lg-0">
                     <select class="form-control form-control-sm">
                         <option>غذاهای سنتی</option>
@@ -66,7 +66,7 @@
                     <a href="{{ route('basket.foods') }}">
                         <i class="fa fa-shopping-cart"></i>
                     </a>
-                </div>
+                </div> --}}
               </nav>
               
                 <div class="card rounded-0">

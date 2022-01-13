@@ -140,6 +140,9 @@ return array(
         "waiting_time"          => "زمان انتظار",
         "price"                 => "قیمت",
         "count"                 => "تعداد",
-        "image_url"             => "تصویر"
+        "image_url"             => "تصویر",
+        "add_count"             => "افزایش موجودی",
+        "finished"              => "تمام شد",
+        "set_status"            => "تغییر وضعیت"
     ),
 );

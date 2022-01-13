@@ -16,7 +16,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $foods = Food::all();
+        $foods = Food::latest()->get();
         return view('admin.food.index' , compact('foods'));
     }
 
@@ -145,5 +145,29 @@ class FoodController extends Controller
     {
         $food->delete();
         return redirect(route('foods.index'));
+    }
+
+    public function addCount(Request $request)
+    {
+        $validateData = $request->validate([
+            'id'        => 'required'
+        ]);
+
+        $food = Food::findOrFail($request->id);
+
+        $request->validate([
+            'add_count' => 'required|numeric|min:'.($food->count * -1)
+        ],
+        [
+            'add_count.min' => 'فیلد موجودی نمی تواند کمتر از صفر شود!'
+        ]);
+
+        $food->count = $food->count + $request->add_count;
+
+        if( $food->count >= 0 && $food->save() ){
+            return back();
+        }
+
+        return back()->withErrors(['error' => 'خطایی رخ داده است!']);
     }
 }
