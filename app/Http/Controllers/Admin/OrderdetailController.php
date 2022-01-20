@@ -18,17 +18,17 @@ class OrderdetailController extends Controller
     public function update(Request $request, OrderDetail $orderDetail)
     {
         $validateData = $request->validate([
-            'id'          => 'required',
-            'set_status'  => 'required|in:finished,accepted'
+            'set_status'  => 'in:finished,accepted,NULL'
         ]);
 
         $orderDetail->delivered_status  = $request->set_status;
+
         if($orderDetail->save()){
             alert()->success('عملیات با موفقیت انجام شد.')->persistent('متوجه شدم')->autoclose(3000);
         }else{
             alert()->error('خطایی رخ داده است!')->persistent('متوجه شدم')->autoclose(3000);
         }
-        
+
         return back();
     }
     

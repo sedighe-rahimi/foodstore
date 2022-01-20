@@ -26,15 +26,20 @@
             @foreach($order->orderDetails as $orderDetail)
               <tr>
                 <td>{{ $orderDetail->id }}</td>
-                <td>{{ $orderDetail->food->name }}</td>
+                <td>
+                   @if($orderDetail->food)
+                    {{ $orderDetail->food->name }}
+                  @else
+                    <span class="badge badge-danger">حذف شده</span>
+                  @endif
+                </td>
                 <td>{{ $orderDetail->count }}</td>
                 <td>
-                  <form action="{{ route('order_details.update' , $orderDetail) }}" method="POST" id="setStatus-form">
+                  <form action="{{ route('order_details.update' , $orderDetail) }}" method="POST" id="setStatus-form{{ $loop->index }}">
                     @csrf
                     @method('patch')
-                    <input type="hidden" name="id" value="{{ $orderDetail->id }}">
-                    <select class="form-control" name="set_status" onchange="$('#setStatus-form').submit()">
-                      <option value="" {{ is_null($orderDetail->delivered_status) ? 'selected' : '' }}>تعیین نشده</option>
+                    <select class="form-control" name="set_status" onchange="$('#setStatus-form{{ $loop->index }}').submit()">
+                      <option value="NULL" {{ is_null($orderDetail->delivered_status) ? 'selected' : '' }}>تعیین نشده</option>
                       <option value="finished" {{ $orderDetail->delivered_status == 'finished' ? 'selected' : '' }}>{{ __('finished') }}</option>
                       <option value="accepted" {{ $orderDetail->delivered_status == 'accepted' ? 'selected' : '' }}>{{ __('accepted') }}</option>
                     </select>
