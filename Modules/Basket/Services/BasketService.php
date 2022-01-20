@@ -24,8 +24,6 @@ class BasketService
     {
         $this->service          = new $service();
         $this->service->timeout = $this->timeout;
-        // $this->cacheName        = $cacheName;
-        // $this->instance         = $instance;
     }
 
     public function __call($method , $args)
