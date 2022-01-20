@@ -8,7 +8,8 @@
         "Modules\\Basket\\Providers\\BasketServiceProvider"
     ],
     "aliases": {
-        "Basket":"Modules\\Basket\\Facades\\Basket"
+        "Basket":"Modules\\Basket\\Facades\\Basket",
+        "BasketCache":"Modules\\Basket\\Facades\\BasketCache"
     },
     "files": [],
     "requires": []

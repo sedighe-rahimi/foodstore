@@ -17,7 +17,7 @@
         <hr class="my-4">
         <div class="col-12 d-flex flex-column">
             @php
-                $foodInBasket = \Modules\Basket\Facades\Basket::get('foods' , $food->id);
+                $foodInBasket = \Modules\Basket\Facades\BasketCache::get('foods' , $food->id);
             @endphp
               <div class="col-12 d-flex">
                 <div class="col-12 col-md-6">  

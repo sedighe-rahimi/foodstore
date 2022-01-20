@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Modules\Basket\Facades\Basket;
+use Modules\Basket\Facades\BasketCache;
 
 class BasketController extends Controller
 {
@@ -11,7 +11,7 @@ class BasketController extends Controller
     {
         $cacheName = 'foods';
         
-        $basketItems = Basket::all($cacheName);
+        $basketItems = BasketCache::all($cacheName);
         
         if( ! $basketItems ){
             alert()->error('سبد خرید شما خالی است!')->persistent('متوجه شدم')->autoclose(3000);

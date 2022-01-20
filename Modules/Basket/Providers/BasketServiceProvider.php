@@ -3,6 +3,7 @@
 namespace Modules\Basket\Providers;
 
 use Modules\Basket\Services\BasketService;
+use Modules\Basket\Services\BasketCacheService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
@@ -41,6 +42,9 @@ class BasketServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->singleton('basket' , function() {
             return new BasketService();
+        });
+        $this->app->singleton('basketCache' , function() {
+            return new BasketCacheService();
         });
     }
 

@@ -71,7 +71,7 @@
                     </form>
                   @endif
                   <a href="{{ route('basket.foods') }}" class="badge badge-primary text-light ml-1 shop-icon">
-                    <span class="badge badge-light" id="basket-badge">{{  ! is_null(Basket::all('foods')) && Basket::all('foods') ? count(Basket::all('foods')) : 0 }}</span>
+                    <span class="badge badge-light" id="basket-badge">{{  ! is_null(BasketCache::all('foods')) && BasketCache::all('foods') ? count(BasketCache::all('foods')) : 0 }}</span>
                     <i class="fas fa-shopping-cart"></i>
                   </a>
                 </div>

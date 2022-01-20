@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Food;
 use App\Models\Order;
 use App\Models\OrderDetail;
-use Modules\Basket\Facades\Basket;
+use Modules\Basket\Facades\BasketCache;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -16,15 +16,15 @@ class PaymentController extends Controller
     {
         $cacheName = 'foods';
         
-        $basketItems = Basket::all($cacheName);
+        $basketItems = BasketCache::all($cacheName);
 
         if( ! $basketItems ){
             alert()->error('سبد خرید شما خالی است!')->persistent('متوجه شدم')->autoclose(3000);
             return redirect(url('/'));
         }
 
-        if( ! Basket::isValid('foods' , 'App\Models\Food') ){
-            Basket::setAgain('foods' , 'App\Models\Food');
+        if( ! BasketCache::isValid('foods' , 'App\Models\Food') ){
+            BasketCache::setAgain('foods' , 'App\Models\Food');
             alert()->error('اطلاعات برخی از غذاهای سبد خرید شما تغییر کرده است. لطفا تغییرات را بررسی و مجددا اقدام نمایید.')->persistent('متوجه شدم')->autoclose(3000);
             return redirect(route('basket.foods'));
         }
@@ -62,7 +62,7 @@ class PaymentController extends Controller
                     $orderDetail->price         = $food->price;
                     $orderDetail->waiting_time  = $food->waiting_time;
                     if($orderDetail->save()){
-                        Basket::deleteBasket('foods');
+                        BasketCache::deleteBasket('foods');
                         $food->count = $food->count - $item['count'];
                         $food->save();
                     }

@@ -5,7 +5,7 @@ namespace Modules\Basket\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Basket\Facades\Basket;
+use Modules\Basket\Facades\BasketCache;
 
 class BasketController extends Controller
 {
@@ -15,7 +15,7 @@ class BasketController extends Controller
      */
     public function all($cacheName)
     {
-        $basketItems = Basket::all($cacheName);
+        $basketItems = BasketCache::all($cacheName);
         
         if( ! $basketItems ) return back();
 
@@ -30,7 +30,7 @@ class BasketController extends Controller
     
     public function addCount($cacheName , $id)
     {
-        Basket::addCount($cacheName , $id);
+        BasketCache::addCount($cacheName , $id);
 
         return back();
     }
@@ -39,9 +39,9 @@ class BasketController extends Controller
     
     public function decreaseCount($decCount , $cacheName , $id)
     {
-        Basket::decreaseCount($cacheName , $id , $decCount);
+        BasketCache::decreaseCount($cacheName , $id , $decCount);
 
-        if( ! Basket::all($cacheName) ){
+        if( ! BasketCache::all($cacheName) ){
             return redirect('/');
         }
 

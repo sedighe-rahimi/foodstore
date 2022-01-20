@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-12 mt-2">
                             @php
-                                $foodInBasket = Basket::get('foods' , $food->id);
+                                $foodInBasket = BasketCache::get('foods' , $food->id);
                             @endphp
                             @if( ! is_null($foodInBasket) && $foodInBasket['count'] >= $food->count && $food->count > 0 )
                                 <span class="badge badge-danger w-100 text-center py-2">تمام موجودی به سبد اضافه شد</span>

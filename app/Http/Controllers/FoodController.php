@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Food;
 use Illuminate\Http\Request;
-use Modules\Basket\Facades\Basket;
+use Modules\Basket\Facades\BasketCache;
 
 class FoodController extends Controller
 {
@@ -95,12 +95,12 @@ class FoodController extends Controller
             'instance'  => get_class($food)
         ];
         
-        Basket::add('foods' , get_class($food) , $basketData);
+        BasketCache::add('foods' , get_class($food) , $basketData);
 
         if($request->ajax()){
             return response()->json([
                 'status' => 200,
-                'basket_count'  => Basket::all('foods') && ! is_null(Basket::all('foods')) ? count(Basket::all('foods')) : 0
+                'basket_count'  => BasketCache::all('foods') && ! is_null(BasketCache::all('foods')) ? count(BasketCache::all('foods')) : 0
             ]);
         }else{
             return redirect(route('basket.foods'));
